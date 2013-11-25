@@ -27,6 +27,7 @@ public:
     void toggleDisplayMode();
 	virtual void move(Vector3f displacement)=0;
     virtual void moveOne(Vector3f displacement)=0;
+	virtual bool intersect(Vector3f& pos, Vector3f& normal)=0;
 protected:
 
 	vector<Vector3f> m_vVecState;

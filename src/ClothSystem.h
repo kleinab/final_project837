@@ -19,6 +19,8 @@ public:
     void move(Vector3f displacement);
     void moveOne(Vector3f displacement);
     Vector3f calculateNormal(int i, int j, vector<Vector3f> states);
+    bool intersect(Vector3f& pos, Vector3f& normal);
+
 private:
     int m_numX;
     int m_numY;

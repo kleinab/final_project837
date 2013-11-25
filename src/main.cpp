@@ -7,12 +7,11 @@
 #include "extra.h"
 #include "camera.h"
 
-///TODO: include more headers if necessary
-
 #include "TimeStepper.h"
-#include "simpleSystem.h"
-#include "pendulumSystem.h"
 #include "ClothSystem.h"
+#include "SphereSystem.h"
+#include "particleSystem.h"
+#include "Group.h"
 using namespace std;
 
 // Globals here.
@@ -20,67 +19,25 @@ namespace
 {
 
   ParticleSystem *system;
+  SphereSystem *sphereSystem;
   TimeStepper * timeStepper;
   float h = 0.04f;
 
-  // initialize your particle systems
-  ///TODO: read argv here. set timestepper , step size etc
   void initSystem(int argc, char * argv[])
   {
     // seed the random number generator with the current time
     srand( time( NULL ) );
     
-    int systemSize = 0;
-    if(argc < 3){
-        cerr<<"incorrect number of inputs"<<endl;
-        exit(0);
-    }else{
-        string solver(argv[1]);
-        if (solver == "e"){
-            timeStepper = new ForwardEuler();
-        }else if (solver == "t"){
-            timeStepper = new Trapzoidal();
-        }else if (solver == "r"){
-            timeStepper = new RK4();
-        }else{
-            cerr<<"incorrect solver"<<endl;
-            exit(0);
-        }
-        h = atof(argv[2]);
-        
-        
-
-        string systemName(argv[3]);
-        if (systemName == "s"){
-            system = new SimpleSystem();
-        }else if (systemName == "p"){
-            if (argc > 4){
-                systemSize = atoi(argv[4]);
-            }else{
-                cerr<<"must input number of particles"<<endl;
-                exit(0);
-            }
-            system = new PendulumSystem(systemSize);
-        }else if (systemName == "c"){
-            if (argc > 4){
-                systemSize = atoi(argv[4]);
-            }else{
-                cerr<<"must input grid size"<<endl;
-                exit(0);
-            }
-            system = new ClothSystem(systemSize);
-        }else{
-            cerr<<"incorrect system"<<endl;
-            exit(0);
-        }
-    }
+    int systemSize = 8;
+    timeStepper = new RK4();
+    system = new ClothSystem(systemSize);
+    sphereSystem = new SphereSystem(Vector3f(1,1,1), 0.25);
+    Group group = Group(2);
+    group.addObject(0, system);
+    group.addObject(1, sphereSystem);
   }
 
-
-
   // Take a step forward for the particle shower
-  ///TODO: Optional. modify this function to display various particle systems
-  ///and switch between different timeSteppers
   void stepSystem()
   {
     if(timeStepper!=0){
@@ -98,8 +55,12 @@ namespace
     
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, particleColor);
     
-    glutSolidSphere(0.1f,10.0f,10.0f);
-    
+    glPushMatrix();
+    glTranslatef(1, -1, 1);
+    glScaled(10, 10, 10); 
+    glutSolidSphere(0.025f,12,12);
+    glPopMatrix();
+
     system->draw();
     
     
@@ -149,7 +110,6 @@ namespace
             break;
         }
         case 'c':
-            //cout<<"a"<<endl;
             system->toggleDisplayMode();
             glutPostRedisplay();
             break;

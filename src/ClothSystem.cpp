@@ -2,7 +2,6 @@
 #include <iostream>
 #include <math.h>
 
-//TODO: Initialize here
 ClothSystem::ClothSystem(int numParticles):ParticleSystem(numParticles)
 {  
     float TOTAL_GRID_SIZE = 2.0;
@@ -15,13 +14,13 @@ ClothSystem::ClothSystem(int numParticles):ParticleSystem(numParticles)
     stopMoving = true;
     stopOneMoving = true;
     float kConstantStruct = 8;
-	float restLengthStruct = TOTAL_GRID_SIZE/(numParticles);
+    float restLengthStruct = TOTAL_GRID_SIZE/(numParticles);
         
     float kConstantSheer = 4;
-	float restLengthSheer = pow(2.0*pow(TOTAL_GRID_SIZE/(numParticles),2.0),0.5);
+    float restLengthSheer = pow(2.0*pow(TOTAL_GRID_SIZE/(numParticles),2.0),0.5);
 
     float kConstantFlex = 4;
-	float restLengthFlex = (2*TOTAL_GRID_SIZE*1.0)/(numParticles);
+    float restLengthFlex = (2*TOTAL_GRID_SIZE*1.0)/(numParticles);
     vector< Vector3f > springs;
     	        
     vector<Vector3f> particleStates;
@@ -101,10 +100,10 @@ ClothSystem::ClothSystem(int numParticles):ParticleSystem(numParticles)
 
             m_vectorSprings.push_back(particle_springs);
             //initiate all initial state
-            Vector3f firstStartStatePos = Vector3f((float(i)*TOTAL_GRID_SIZE)/float(m_numX),(float(j)*TOTAL_GRID_SIZE)/float(m_numY),0);
-	        Vector3f firstStartStateVel = Vector3f(0,0,0);
-	        particleStates.push_back(firstStartStatePos);
-	        particleStates.push_back(firstStartStateVel);
+            Vector3f firstStartStatePos = Vector3f((float(i)*TOTAL_GRID_SIZE)/float(m_numX),0,(float(j)*TOTAL_GRID_SIZE)/float(m_numY));
+	    Vector3f firstStartStateVel = Vector3f(0,0,0);
+	    particleStates.push_back(firstStartStatePos);
+	    particleStates.push_back(firstStartStateVel);
         } 
     }
     
@@ -143,27 +142,11 @@ void ClothSystem::moveOne(Vector3f displacement){
         m_moveOneClothForce = displacement;
     }
 }
+
 Vector3f ClothSystem::calcForce(int i, float g, float dragk, vector<Vector3f> state){
     
     Vector3f x = state.at(i*2);
-    Vector3f v = state.at(i*2 +1);
-
-    if (i==0 && stopMoving){
-        if (stopOneMoving && v.abs()>0.001){
-            return -v;
-        }else if (!stopOneMoving){
-            return m_moveOneClothForce;
-        }
-    }
-    if (i==0 || i == m_numParticles - m_numY){
-        if (stopMoving && v.abs()>0.001){
-            return -v;
-        }else if (stopMoving){
-            return Vector3f(0,0,0);
-        }else{
-            return m_moveClothForce;
-        }
-    }
+    Vector3f v = state.at(i*2 +1); 
 
     float mass = m_particleMasses.at(i);
 	vector<Vector3f> mySprings = m_vectorSprings.at(i);
@@ -174,7 +157,6 @@ Vector3f ClothSystem::calcForce(int i, float g, float dragk, vector<Vector3f> st
 	    Vector3f spring = mySprings.at(j);
 	    Vector3f otherX = state.at(spring[0]*2);
 	    Vector3f distance = x - otherX;
-        //cout<<distance[0]<<" "<<distance[1]<<" "<<distance[2]<<endl;
 	    springForce += -spring[1]*(distance*((distance.abs()-spring[2])/spring[2]));
         
 	}
@@ -185,7 +167,6 @@ Vector3f ClothSystem::calcForce(int i, float g, float dragk, vector<Vector3f> st
     return sol;
 }
 
-// TODO: implement evalF
 // for a given state, evaluate f(X,t)
 vector<Vector3f> ClothSystem::evalF(vector<Vector3f> state)
 {
@@ -261,7 +242,10 @@ Vector3f ClothSystem::calculateNormal(int i, int j, vector<Vector3f> states){
     return sol.normalized();
 }
 
-///TODO: render the system (ie draw the particles)
+bool ClothSystem::intersect(Vector3f& pos, Vector3f& normal) {
+    return true;
+}
+
 void ClothSystem::draw()
 {
     //if (isUsingColor){
