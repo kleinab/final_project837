@@ -104,7 +104,7 @@ ClothSystem::ClothSystem(int numParticles):ParticleSystem(numParticles)
 
             m_vectorSprings.push_back(particle_springs);
             //initiate all initial state
-            Vector3f firstStartStatePos = Vector3f((float(i)*TOTAL_GRID_SIZE)/float(m_numX),0,(float(j)*TOTAL_GRID_SIZE)/float(m_numY));
+            Vector3f firstStartStatePos = Vector3f((float(i)*TOTAL_GRID_SIZE)/float(m_numX),4,(float(j)*TOTAL_GRID_SIZE)/float(m_numY));
             Vector3f firstStartStateVel = Vector3f(0,0,0);
             particleStates.push_back(firstStartStatePos);
             particleStates.push_back(firstStartStateVel);
@@ -299,9 +299,7 @@ bool ClothSystem::selfIntersect(int index, Vector3f& normal, Vector3f& impulse){
 
 void ClothSystem::draw()
 {
-    //if (isUsingColor){
-    //    glDisable (GL_LIGHTING);
-    //}
+
     vector<Vector3f> states = getState();
     if (displayMesh){
         //cout<<"b"<<endl;
@@ -314,8 +312,8 @@ void ClothSystem::draw()
 	            Vector3f otherX = states.at(spring[0]*2);
 	            Vector3f distance = pos - otherX;
                 glBegin(GL_LINES);
-                     glVertex3f(pos[0], pos[1],pos[2]);
-                     glVertex3f(otherX[0],otherX[1],otherX[2]);
+                glVertex3f(pos[0], pos[1],pos[2]);
+                glVertex3f(otherX[0],otherX[1],otherX[2]);
                 glEnd();
 	        }
             glPushMatrix();

@@ -10,7 +10,9 @@
 #include "TimeStepper.h"
 #include "ClothSystem.h"
 #include "SphereSystem.h"
+#include "StaticMeshSystem.h"
 #include "particleSystem.h"
+#include "Mesh.h"
 //#include "Group.h"
 using namespace std;
 
@@ -20,30 +22,31 @@ namespace
 
   ParticleSystem *system;
   SphereSystem *sphereSystem;
+  StaticMeshSystem *meshSystem;
   TimeStepper * timeStepper;
   float h = 0.04f;
+  Mesh a;
 
   void initSystem(int argc, char * argv[])
   {
     // seed the random number generator with the current time
     srand( time( NULL ) );
-    
     int systemSize = 11;
     timeStepper = new RK4();
     system = new ClothSystem(systemSize);
     Vector3f center = Vector3f(1,-1,1);
-    sphereSystem = new SphereSystem(center, 0.5);
-    system->addGroup(sphereSystem);
-    //Group group = Group(2);
-    //group.addObject(0, system);
-    //group.addObject(1, sphereSystem);
+    //sphereSystem = new SphereSystem(center, 0.5);
+    //system->addGroup(sphereSystem);
+    a.load("cube.obj");
+    meshSystem = new StaticMeshSystem(a);
+    system->addGroup(meshSystem);
   }
 
   // Take a step forward for the particle shower
   void stepSystem()
   {
     if(timeStepper!=0){
-      timeStepper->takeStep(system,h);
+        timeStepper->takeStep(system,h);
     }
   }
 
@@ -60,11 +63,11 @@ namespace
     glPushMatrix();
     glTranslatef(1, -1, 1);
     glScaled(10, 10, 10); 
-    glutSolidSphere(0.05f,12,12);
+    //glutSolidSphere(0.05f,12,12);
     glPopMatrix();
 
     system->draw();
-    
+    a.draw();
     
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, floorColor);
     glPushMatrix();

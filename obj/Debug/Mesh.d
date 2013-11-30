@@ -1,12 +1,10 @@
-obj/Debug/main.o: src/main.cpp src/extra.h vecmath/include/vecmath.h \
+obj/Debug/Mesh.o: src/Mesh.cpp src/Mesh.h vecmath/include/vecmath.h \
  vecmath/include/Matrix2f.h vecmath/include/Matrix3f.h \
  vecmath/include/Matrix4f.h vecmath/include/Quat4f.h \
  vecmath/include/Vector2f.h vecmath/include/Vector3f.h \
- vecmath/include/Vector4f.h src/camera.h src/TimeStepper.h \
- src/particleSystem.h src/ClothSystem.h src/SphereSystem.h \
- src/StaticMeshSystem.h src/Mesh.h
+ vecmath/include/Vector4f.h src/extra.h
 
-src/extra.h:
+src/Mesh.h:
 
 vecmath/include/vecmath.h:
 
@@ -24,16 +22,4 @@ vecmath/include/Vector3f.h:
 
 vecmath/include/Vector4f.h:
 
-src/camera.h:
-
-src/TimeStepper.h:
-
-src/particleSystem.h:
-
-src/ClothSystem.h:
-
-src/SphereSystem.h:
-
-src/StaticMeshSystem.h:
-
-src/Mesh.h:
+src/extra.h:

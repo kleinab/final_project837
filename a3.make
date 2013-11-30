@@ -70,8 +70,10 @@ endif
 OBJECTS := \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/ClothSystem.o \
+	$(OBJDIR)/Mesh.o \
 	$(OBJDIR)/camera.o \
 	$(OBJDIR)/particleSystem.o \
+	$(OBJDIR)/StaticMeshSystem.o \
 	$(OBJDIR)/SphereSystem.o \
 
 RESOURCES := \
@@ -139,10 +141,16 @@ $(OBJDIR)/main.o: src/main.cpp
 $(OBJDIR)/ClothSystem.o: src/ClothSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/Mesh.o: src/Mesh.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/camera.o: src/camera.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/particleSystem.o: src/particleSystem.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/StaticMeshSystem.o: src/StaticMeshSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/SphereSystem.o: src/SphereSystem.cpp
