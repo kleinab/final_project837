@@ -11,7 +11,7 @@
 #include "ClothSystem.h"
 #include "SphereSystem.h"
 #include "particleSystem.h"
-#include "Group.h"
+//#include "Group.h"
 using namespace std;
 
 // Globals here.
@@ -28,13 +28,15 @@ namespace
     // seed the random number generator with the current time
     srand( time( NULL ) );
     
-    int systemSize = 8;
+    int systemSize = 11;
     timeStepper = new RK4();
     system = new ClothSystem(systemSize);
-    sphereSystem = new SphereSystem(Vector3f(1,1,1), 0.25);
-    Group group = Group(2);
-    group.addObject(0, system);
-    group.addObject(1, sphereSystem);
+    Vector3f center = Vector3f(1,-1,1);
+    sphereSystem = new SphereSystem(center, 0.5);
+    system->addGroup(sphereSystem);
+    //Group group = Group(2);
+    //group.addObject(0, system);
+    //group.addObject(1, sphereSystem);
   }
 
   // Take a step forward for the particle shower
@@ -58,7 +60,7 @@ namespace
     glPushMatrix();
     glTranslatef(1, -1, 1);
     glScaled(10, 10, 10); 
-    glutSolidSphere(0.025f,12,12);
+    glutSolidSphere(0.05f,12,12);
     glPopMatrix();
 
     system->draw();

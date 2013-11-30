@@ -64,11 +64,11 @@ ifeq ($(config),release)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/Matrix2f.o \
+	$(OBJDIR)/Vector2f.o \
 	$(OBJDIR)/Matrix3f.o \
 	$(OBJDIR)/Matrix4f.o \
+	$(OBJDIR)/Matrix2f.o \
 	$(OBJDIR)/Quat4f.o \
-	$(OBJDIR)/Vector2f.o \
 	$(OBJDIR)/Vector3f.o \
 	$(OBJDIR)/Vector4f.o \
 
@@ -131,7 +131,7 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 endif
 
-$(OBJDIR)/Matrix2f.o: src/Matrix2f.cpp
+$(OBJDIR)/Vector2f.o: src/Vector2f.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/Matrix3f.o: src/Matrix3f.cpp
@@ -140,10 +140,10 @@ $(OBJDIR)/Matrix3f.o: src/Matrix3f.cpp
 $(OBJDIR)/Matrix4f.o: src/Matrix4f.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/Quat4f.o: src/Quat4f.cpp
+$(OBJDIR)/Matrix2f.o: src/Matrix2f.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/Vector2f.o: src/Vector2f.cpp
+$(OBJDIR)/Quat4f.o: src/Quat4f.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/Vector3f.o: src/Vector3f.cpp

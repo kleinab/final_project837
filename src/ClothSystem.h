@@ -20,7 +20,7 @@ public:
     void moveOne(Vector3f displacement);
     Vector3f calculateNormal(int i, int j, vector<Vector3f> states);
     bool intersect(Vector3f& pos, Vector3f& normal);
-
+    bool selfIntersect(int index, Vector3f& normal, Vector3f& impulse);
 private:
     int m_numX;
     int m_numY;
@@ -29,8 +29,10 @@ private:
     Vector3f m_moveClothForce;
     Vector3f m_moveOneClothForce;
     vector<Vector3f> m_normals;
+    vector<bool> m_isIntersecting;
     bool stopMoving;
     bool stopOneMoving;
+
 };
 
 

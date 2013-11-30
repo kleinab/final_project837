@@ -4,6 +4,10 @@
 
 ClothSystem::ClothSystem(int numParticles):ParticleSystem(numParticles)
 {  
+    //varibles for collision
+    minDistance = 0.1;
+    impulseDistance = 0.2;
+
     float TOTAL_GRID_SIZE = 2.0;
     displayMesh = true;
     m_numX = numParticles;
@@ -101,9 +105,10 @@ ClothSystem::ClothSystem(int numParticles):ParticleSystem(numParticles)
             m_vectorSprings.push_back(particle_springs);
             //initiate all initial state
             Vector3f firstStartStatePos = Vector3f((float(i)*TOTAL_GRID_SIZE)/float(m_numX),0,(float(j)*TOTAL_GRID_SIZE)/float(m_numY));
-	    Vector3f firstStartStateVel = Vector3f(0,0,0);
-	    particleStates.push_back(firstStartStatePos);
-	    particleStates.push_back(firstStartStateVel);
+            Vector3f firstStartStateVel = Vector3f(0,0,0);
+            particleStates.push_back(firstStartStatePos);
+            particleStates.push_back(firstStartStateVel);
+            m_isIntersecting.push_back(false);
         } 
     }
     
@@ -148,6 +153,9 @@ Vector3f ClothSystem::calcForce(int i, float g, float dragk, vector<Vector3f> st
     Vector3f x = state.at(i*2);
     Vector3f v = state.at(i*2 +1); 
 
+    m_isIntersecting.at(i) = false;
+
+
     float mass = m_particleMasses.at(i);
 	vector<Vector3f> mySprings = m_vectorSprings.at(i);
 	Vector3f springForce = Vector3f(0,0,0);
@@ -170,13 +178,23 @@ Vector3f ClothSystem::calcForce(int i, float g, float dragk, vector<Vector3f> st
 // for a given state, evaluate f(X,t)
 vector<Vector3f> ClothSystem::evalF(vector<Vector3f> state)
 {
-	float g = -1.0;
+	float g = -0.4;
     float dragk = 0.5;
 	vector<Vector3f> f;
     vector<Vector3f> states = getState();
     for(int i=0; i< m_numParticles; i++){
         Vector3f newForce = calcForce(i, g, dragk, state);
         Vector3f v = state.at(i*2 +1);
+
+        for(int j = 0; j<group.size(); j++){
+            ParticleSystem * p = group.at(j);
+            Vector3f normal;
+            if (p->intersect(states.at(i*2), normal)){
+                v = Vector3f(0,0,0);
+                newForce = Vector3f(0,0,0);
+            }
+        }
+
         f.push_back(v);
         f.push_back(newForce);
     }
@@ -243,7 +261,40 @@ Vector3f ClothSystem::calculateNormal(int i, int j, vector<Vector3f> states){
 }
 
 bool ClothSystem::intersect(Vector3f& pos, Vector3f& normal) {
+    //iterate through all triangles
+
     return true;
+}
+
+bool ClothSystem::selfIntersect(int index, Vector3f& normal, Vector3f& impulse){
+    vector<Vector3f> states = getState();
+    for (int i = 0; i< m_numY-1; i++){
+        for (int j = 0; j< m_numX-1; j++){
+            vector< Vector3f > particle_springs;
+            int indexA = convert(i,j)*2;
+            int indexB = convert(i, j+1)*2;
+            int indexC = convert(i+1, j+1)*2;
+            int indexD = convert(i+1, j)*2; 
+
+            Vector3f a = states.at(indexA);
+            Vector3f b = states.at(indexB);
+            Vector3f c = states.at(indexC);
+            Vector3f d = states.at(indexD);
+
+            Vector3f na = m_normals.at(indexA/2);
+            Vector3f nb = m_normals.at(indexB/2);
+            Vector3f nc = m_normals.at(indexC/2);
+            Vector3f nd = m_normals.at(indexD/2);
+
+            //triangle 1 = a,b,c
+            //triagle 2 = c,d,a
+
+            //if index isnt part of triangle already
+            if (index!=indexA && index!=indexB && index!=indexC && index!=indexD){
+
+            }
+        } 
+    }
 }
 
 void ClothSystem::draw()
@@ -255,7 +306,7 @@ void ClothSystem::draw()
     if (displayMesh){
         //cout<<"b"<<endl;
         for (int i = 0; i < m_numParticles; i++) {
-		    Vector3f pos = states.at(i*2);//  position of particle i. YOUR CODE HERE
+		    Vector3f pos = states.at(i*2);//  position of particle i
             vector<Vector3f> mySprings = m_vectorSprings.at(i);
 	        
 	        for(int j = 0; j< mySprings.size(); j++){
@@ -294,7 +345,6 @@ void ClothSystem::draw()
         //cout<<"ss"<<endl;
         for (int i = 0; i< m_numY-1; i++){
             for (int j = 0; j< m_numX-1; j++){
-                m_particleMasses.push_back(1);
                 vector< Vector3f > particle_springs;
                 int indexA = convert(i,j)*2;
                 int indexB = convert(i, j+1)*2;

@@ -68,10 +68,11 @@ ifeq ($(config),release)
 endif
 
 OBJECTS := \
+	$(OBJDIR)/main.o \
 	$(OBJDIR)/ClothSystem.o \
 	$(OBJDIR)/camera.o \
-	$(OBJDIR)/main.o \
 	$(OBJDIR)/particleSystem.o \
+	$(OBJDIR)/SphereSystem.o \
 
 RESOURCES := \
 
@@ -132,16 +133,19 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 endif
 
+$(OBJDIR)/main.o: src/main.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/ClothSystem.o: src/ClothSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/camera.o: src/camera.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/main.o: src/main.cpp
+$(OBJDIR)/particleSystem.o: src/particleSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/particleSystem.o: src/particleSystem.cpp
+$(OBJDIR)/SphereSystem.o: src/SphereSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 

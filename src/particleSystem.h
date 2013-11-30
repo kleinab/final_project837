@@ -22,6 +22,7 @@ public:
 	
 	// setter method for the system's state
 	void setState(const vector<Vector3f>  & newState) { m_vVecState = newState; };
+	void addGroup(ParticleSystem * g){group.push_back(g);}
 	
 	virtual void draw() = 0;
     void toggleDisplayMode();
@@ -32,6 +33,10 @@ protected:
 
 	vector<Vector3f> m_vVecState;
     bool displayMesh;
+    float minDistance;
+    float impulseDistance;
+    
+    vector<ParticleSystem *> group;
 	
 };
 
