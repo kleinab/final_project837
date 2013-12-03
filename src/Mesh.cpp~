@@ -15,7 +15,7 @@ void Mesh::load( const char* filename )
         iss >> s;
 		if (s == "v") {  //vertices
 		    iss >> v[0] >> v[1] >> v[2];
-		    bindVertices.push_back(v*10);
+		    bindVertices.push_back(v);
 		}else if (s == "f"){ //face
             Vector3f face = Vector3f(0,0,0);
 		    iss >> face[0] >> face[1] >> face[2];
