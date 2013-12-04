@@ -181,14 +181,6 @@ vector<Vector3f> ClothSystem::evalF(vector<Vector3f> state)
     //Advance to candidate positions x^n+1 
     //and velocities v^n+1 at time t^n+1 with the cloth internal dynamics
 
-    //Compute the average velocity v^n+1/2 = x^n+1-x^n/deltaT
-    //Check x^n for proximity, apply repulsion inpulses and friction to v^n+1/2 to get ~v^n+1/2
-    //Check linear trajectories from x^n with ~v^n+1/2 for collisions, 
-        //resolving them with a final midstep velocity v^n+1/2
-    //compute final positions x^n+1 = x^n + deltaT*v^n+1/2
-    //if no repulsions/collisions, v^n+1 = v^n+1
-        //else v^n+1/2 = v^n+1
-
 	float g = -0.4;
     float dragk = 0.5;
 	vector<Vector3f> f;
