@@ -68,13 +68,17 @@ ifeq ($(config),release)
 endif
 
 OBJECTS := \
-	$(OBJDIR)/main.o \
 	$(OBJDIR)/ClothSystem.o \
 	$(OBJDIR)/Mesh.o \
 	$(OBJDIR)/camera.o \
+	$(OBJDIR)/main.o \
 	$(OBJDIR)/particleSystem.o \
-	$(OBJDIR)/StaticMeshSystem.o \
 	$(OBJDIR)/SphereSystem.o \
+	$(OBJDIR)/StaticMeshSystem.o \
+	$(OBJDIR)/Joint.o \
+	$(OBJDIR)/MatrixStack.o \
+	$(OBJDIR)/SkeletalModel.o \
+	$(OBJDIR)/SkeletonMesh.o \
 
 RESOURCES := \
 
@@ -135,9 +139,6 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 endif
 
-$(OBJDIR)/main.o: src/main.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/ClothSystem.o: src/ClothSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
@@ -147,13 +148,28 @@ $(OBJDIR)/Mesh.o: src/Mesh.cpp
 $(OBJDIR)/camera.o: src/camera.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/main.o: src/main.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/particleSystem.o: src/particleSystem.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/SphereSystem.o: src/SphereSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 $(OBJDIR)/StaticMeshSystem.o: src/StaticMeshSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/SphereSystem.o: src/SphereSystem.cpp
+$(OBJDIR)/Joint.o: src/Joint.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/MatrixStack.o: src/MatrixStack.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/SkeletalModel.o: src/SkeletalModel.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/SkeletonMesh.o: src/SkeletonMesh.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 

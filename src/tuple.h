@@ -7,6 +7,7 @@
 #include <cstring>
 #include <iostream>
 
+namespace Tuple {
 // This is eugene going a little nuts with C++
 template <typename TYPE, unsigned SIZE>
 class tuple
@@ -70,5 +71,5 @@ std::ostream& operator<<(std::ostream &out, const tuple<TYPE,SIZE> x)
         out << ' ' << x[i];
     return out << " ]" <<  std::flush;
 }
-
+}
 #endif
