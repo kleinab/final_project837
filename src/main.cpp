@@ -39,8 +39,8 @@ namespace
     Vector3f center = Vector3f(1,-1,1);
     //sphereSystem = new SphereSystem(center, 0.5);
     //system->addGroup(sphereSystem);
-    //a.load("bunny_200.obj");
-    a.load("data/vertices-all.txt");
+    a.load("bunny_200.obj");
+    //a.load("data/vertices-all.txt");
     meshSystem = new StaticMeshSystem(a);
     system->addGroup(meshSystem);
     system->toggleDisplayMode();
@@ -231,8 +231,8 @@ namespace
         glShadeModel(GL_SMOOTH);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
+        glEnable(GL_CULL_FACE);
+	    glCullFace(GL_BACK);
 
         // Clear to black
         glClearColor(0,0,0,1);
