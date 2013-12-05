@@ -13,6 +13,8 @@
 #include "StaticMeshSystem.h"
 #include "particleSystem.h"
 #include "Mesh.h"
+
+#include "SkeletalModel.h"
 //#include "Group.h"
 using namespace std;
 
@@ -36,10 +38,11 @@ namespace
     Vector3f center = Vector3f(1,-1,1);
     //sphereSystem = new SphereSystem(center, 0.5);
     //system->addGroup(sphereSystem);
-    //a.load("bunny_1k.obj");
-    //meshSystem = new StaticMeshSystem(a);
-    //system->addGroup(meshSystem);
-
+    //a.load("bunny_200.obj");
+    a.load("data/vertices-all.txt");
+    meshSystem = new StaticMeshSystem(a);
+    system->addGroup(meshSystem);
+    system->toggleDisplayMode();\
   }
 
   // Take a step forward for the particle shower
@@ -67,8 +70,8 @@ namespace
     glPopMatrix();
 
     system->draw();
-    a.draw();
-    
+    //a.draw();
+
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, floorColor);
     glPushMatrix();
     glTranslatef(0.0f,-5.0f,0.0f);
@@ -78,6 +81,32 @@ namespace
     
   }
         
+
+  void drawSkeleton(Matrix4f cameraMatrix) {
+    SkeletalModel skeletalModel = SkeletalModel();
+    const char* skeletonFile = "data/Model1.skel";
+    const char* meshFile = "data/Model1.obj";
+    const char* attachmentsFile = "data/Model1.attach";
+    skeletalModel.load(skeletonFile, meshFile, attachmentsFile);
+
+    GLfloat diffColor[] = {0.4f, 0.4f, 0.4f, 1.f};
+    GLfloat specColor[] = {0.6f, 0.6f, 0.6f, 1.f};
+    GLfloat shininess[] = {50.0f};
+    
+    glMaterialfv( GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, diffColor );
+    glMaterialfv( GL_FRONT_AND_BACK, GL_SPECULAR, specColor );
+    glMaterialfv( GL_FRONT_AND_BACK, GL_SHININESS, shininess );
+
+    skeletalModel.setJointTransform(12, -0.1f, 0.1f, 0.1f);
+    skeletalModel.setJointTransform(13, -0.3f, -0.5f, 0.8f);
+    skeletalModel.setJointTransform(14, -0.2f, 1.2f, 0.1f);
+    skeletalModel.setJointTransform(15, -0.6f, 0, 0);
+    skeletalModel.setJointTransform(16, -0.2f, 0, -0.5);
+    skeletalModel.setJointTransform(17, -0.3f, -0.7f, 0.1f);
+    skeletalModel.updateCurrentJointToWorldTransforms();
+    skeletalModel.updateMesh();
+    skeletalModel.draw(cameraMatrix, false);
+  }
 
     //-------------------------------------------------------------------
     
@@ -232,6 +261,7 @@ namespace
         // THIS IS WHERE THE DRAW CODE GOES.
 
         drawSystem();
+	drawSkeleton(camera.viewMatrix());
 
         // This draws the coordinate axes when you're rotating, to
         // keep yourself oriented.
