@@ -1,6 +1,6 @@
 i=1
-left=[0]
-right=[0]
+left=[-1]
+right=[-1]
 f=open("Model1.attach", "r")
 for line in f:
   if '0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 ' in line:
