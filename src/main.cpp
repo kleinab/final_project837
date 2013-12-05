@@ -38,8 +38,8 @@ namespace
     Vector3f center = Vector3f(1,-1,1);
     //sphereSystem = new SphereSystem(center, 0.5);
     //system->addGroup(sphereSystem);
-    //a.load("bunny_200.obj");
-    a.load("data/vertices-all.txt");
+    a.load("bunny_200.obj");
+    //a.load("data/vertices-all.txt");
     meshSystem = new StaticMeshSystem(a);
     system->addGroup(meshSystem);
     system->toggleDisplayMode();\
@@ -62,23 +62,11 @@ namespace
     GLfloat floorColor[] = {1.0f, 0.0f, 0.0f, 1.0f};
     
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, particleColor);
-    
-    glPushMatrix();
-    glTranslatef(1, -1, 1);
-    glScaled(10, 10, 10); 
-    //glutSolidSphere(0.05f,12,12);
-    glPopMatrix();
 
     system->draw();
-    //a.draw();
+    a.draw();
 
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, floorColor);
-    glPushMatrix();
-    glTranslatef(0.0f,-5.0f,0.0f);
-    glScaled(50.0f,0.01f,50.0f);
-    glutSolidCube(1);
-    glPopMatrix();
-    
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, floorColor);    
   }
         
 
@@ -234,8 +222,8 @@ namespace
         glShadeModel(GL_SMOOTH);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
+        glEnable(GL_CULL_FACE);
+	    glCullFace(GL_BACK);
 
         // Clear to black
         glClearColor(0,0,0,1);
@@ -259,9 +247,9 @@ namespace
         glLoadMatrixf( camera.viewMatrix() );
 
         // THIS IS WHERE THE DRAW CODE GOES.
-
+	   
         drawSystem();
-	drawSkeleton(camera.viewMatrix());
+		//drawSkeleton(camera.viewMatrix());
 
         // This draws the coordinate axes when you're rotating, to
         // keep yourself oriented.
