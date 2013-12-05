@@ -41,7 +41,7 @@ void SkeletalModel::draw(Matrix4f cameraMatrix, bool skeletonVisible)
 		glPushMatrix();
 		glTranslatef(-5.0f, -5.0f, -7.0f);
 		glScaled(10.0f, 10.0f, 10.0f);
-		 Tell the mesh to draw itself.
+		//Tell the mesh to draw itself.
 		m_mesh.draw();
 		glPopMatrix();
 	}
