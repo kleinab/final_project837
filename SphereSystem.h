@@ -14,7 +14,8 @@ public:
 	void draw();
     void move(Vector3f displacement);
     void moveOne(Vector3f displacement);
-    bool intersect(Vector3f& pos, Vector3f& normal);
+    int intersect(Vector3f& pos, Vector3f& v, Vector3f& normal);
+    int distanceToMesh(int i, Vector3f &pos){return 0;}
 private:
     float radius;
     Vector3f center;

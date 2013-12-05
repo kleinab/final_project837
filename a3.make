@@ -74,7 +74,7 @@ OBJECTS := \
 	$(OBJDIR)/camera.o \
 	$(OBJDIR)/particleSystem.o \
 	$(OBJDIR)/StaticMeshSystem.o \
-	$(OBJDIR)/SphereSystem.o \
+	$(OBJDIR)/TimeStepper.o \
 
 RESOURCES := \
 
@@ -153,7 +153,7 @@ $(OBJDIR)/particleSystem.o: src/particleSystem.cpp
 $(OBJDIR)/StaticMeshSystem.o: src/StaticMeshSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
-$(OBJDIR)/SphereSystem.o: src/SphereSystem.cpp
+$(OBJDIR)/TimeStepper.o: src/TimeStepper.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 

@@ -9,12 +9,14 @@ SphereSystem::SphereSystem(Vector3f &pos, float r):ParticleSystem(1){
     radius = r;
 }
 
-bool SphereSystem::intersect(Vector3f& pos, Vector3f& normal){
-	float thickness = 0.05;
+int SphereSystem::intersect(Vector3f& pos, Vector3f& v, Vector3f& normal){
+	float thickness = 0.02;
 	if ((pos-center).abs()<radius+thickness){
-		return true;
-	}
-	return false;
+		return 2;
+	}else if ((pos-center).abs()<radius+thickness+0.01){
+        return 1;
+    }
+	return 0;
 }
 
 vector<Vector3f> SphereSystem::evalF(vector<Vector3f> state)

@@ -3,7 +3,7 @@ obj/Debug/ClothSystem.o: src/ClothSystem.cpp src/ClothSystem.h \
  vecmath/include/Matrix3f.h vecmath/include/Matrix4f.h \
  vecmath/include/Quat4f.h vecmath/include/Vector2f.h \
  vecmath/include/Vector3f.h vecmath/include/Vector4f.h \
- src/particleSystem.h
+ src/particleSystem.h src/Mesh.h
 
 src/ClothSystem.h:
 
@@ -26,3 +26,5 @@ vecmath/include/Vector3f.h:
 vecmath/include/Vector4f.h:
 
 src/particleSystem.h:
+
+src/Mesh.h:
