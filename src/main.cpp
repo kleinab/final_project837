@@ -63,23 +63,11 @@ namespace
     GLfloat floorColor[] = {1.0f, 0.0f, 0.0f, 1.0f};
     
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, particleColor);
-    
-    glPushMatrix();
-    glTranslatef(1, -1, 1);
-    glScaled(10, 10, 10); 
-    //glutSolidSphere(0.05f,12,12);
-    glPopMatrix();
 
     system->draw();
-    //a.draw();
+    a.draw();
 
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, floorColor);
-    glPushMatrix();
-    glTranslatef(0.0f,-5.0f,0.0f);
-    glScaled(50.0f,0.01f,50.0f);
-    glutSolidCube(1);
-    glPopMatrix();
-    
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, floorColor);    
   }
         
 
@@ -268,9 +256,9 @@ namespace
         glLoadMatrixf( camera.viewMatrix() );
 
         // THIS IS WHERE THE DRAW CODE GOES.
-
+	   
         drawSystem();
-	drawSkeleton(camera.viewMatrix());
+		//drawSkeleton(camera.viewMatrix());
 
         // This draws the coordinate axes when you're rotating, to
         // keep yourself oriented.
