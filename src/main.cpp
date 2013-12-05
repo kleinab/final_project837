@@ -65,8 +65,13 @@ namespace
 
     system->draw();
     a.draw();
-
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, floorColor);    
+ 
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, floorColor);
+    glPushMatrix();
+    glTranslatef(0.0f,-5.0f,0.0f);
+    glScaled(50.0f,0.01f,50.0f);
+    glutSolidCube(1);
+    glPopMatrix();
   }
         
 
