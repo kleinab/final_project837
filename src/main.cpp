@@ -39,9 +39,11 @@ namespace
     Vector3f center = Vector3f(1,-1,1);
     //sphereSystem = new SphereSystem(center, 0.5);
     //system->addGroup(sphereSystem);
-    a.load("bunny_200.obj");
+    //a.load("bunny_200.obj");
+    a.load("data/vertices-all.txt");
     meshSystem = new StaticMeshSystem(a);
     system->addGroup(meshSystem);
+    system->toggleDisplayMode();
   }
 
   // Take a step forward for the particle shower
