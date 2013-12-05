@@ -23,6 +23,15 @@ class Trapezoidal:public TimeStepper
   void takeStep(ParticleSystem* particleSystem, float stepSize);
 };
 
+class ClothSimulation:public TimeStepper
+{
+public:
+	ClothSimulation();
+    void takeStep(ParticleSystem* particleSystem, float stepSize);
+private:
+    TimeStepper * timeStepper;
+};
+
 /////////////////////////
 
 //Provided

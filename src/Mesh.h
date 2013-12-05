@@ -10,6 +10,7 @@
 #include "extra.h"
 #include <algorithm> 
 #include <stdlib.h>
+#include <utility> 
 
 //#include "tuple.h"
 
@@ -31,6 +32,8 @@ struct Mesh
 	// one attachment weight per joint
 	std::vector< std::vector< float > > attachments;
 
+	std::vector< Vector3f > joints;
+
 	// 2.1.1. load() should populate bindVertices, currentVertices, and faces
 	void load(const char *filename);
 
@@ -38,7 +41,7 @@ struct Mesh
 	void draw();
 
 	//check each face to see if input position intersects with mesh
-	bool intersect(Vector3f &pos, float minDistance);
+	std::pair <int, float> intersect(int index, Vector3f &pos, Vector3f& v,Vector3f &normal, float minDistance, bool selfIntersect);
 
 	// 2.2. Implement this method to load the per-vertex attachment weights
 	// this method should update m_mesh.attachments

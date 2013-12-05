@@ -9,7 +9,7 @@
 
 #include "TimeStepper.h"
 #include "ClothSystem.h"
-#include "SphereSystem.h"
+//#include "SphereSystem.h"
 #include "StaticMeshSystem.h"
 #include "particleSystem.h"
 #include "Mesh.h"
@@ -23,7 +23,6 @@ namespace
 {
 
   ParticleSystem *system;
-  SphereSystem *sphereSystem;
   StaticMeshSystem *meshSystem;
   TimeStepper * timeStepper;
   float h = 0.04f;
@@ -34,16 +33,16 @@ namespace
     // seed the random number generator with the current time
     srand( time( NULL ) );
     int systemSize = 12;
-    timeStepper = new RK4();
+    timeStepper = new ClothSimulation();
     system = new ClothSystem(systemSize);
     Vector3f center = Vector3f(1,-1,1);
     //sphereSystem = new SphereSystem(center, 0.5);
     //system->addGroup(sphereSystem);
-    //a.load("bunny_200.obj");
-    a.load("data/vertices-all.txt");
+    a.load("bunny_200.obj");
+    //a.load("data/vertices-all.txt");
     meshSystem = new StaticMeshSystem(a);
     system->addGroup(meshSystem);
-    system->toggleDisplayMode();
+    system->toggleDisplayMode();\
   }
 
   // Take a step forward for the particle shower
@@ -136,14 +135,6 @@ namespace
             system->toggleDisplayMode();
             glutPostRedisplay();
             break;
-        case 'w':
-            system->move(Vector3f(0,0,-0.1));
-            glutPostRedisplay();
-            break;
-        case 's':
-            system->move(Vector3f(0,0,0.1));
-            glutPostRedisplay();
-            break;
         case 'q':
             system->moveOne(Vector3f(0.1,0,0));
             glutPostRedisplay();
@@ -231,8 +222,8 @@ namespace
         glShadeModel(GL_SMOOTH);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
+        glEnable(GL_CULL_FACE);
+	    glCullFace(GL_BACK);
 
         // Clear to black
         glClearColor(0,0,0,1);

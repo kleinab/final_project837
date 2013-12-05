@@ -2,7 +2,6 @@
 #define STATICMESHSYSTEM_H
 
 #include "extra.h"
-#include <vector>
 #include "Mesh.h"
 
 #include "particleSystem.h"
@@ -15,9 +14,13 @@ public:
 	void draw();
     void move(Vector3f displacement);
     void moveOne(Vector3f displacement);
-    bool intersect(Vector3f& pos, Vector3f& normal);
+    pair<int, float> intersect(int index,Vector3f& pos, Vector3f& v, Vector3f& normal, bool selfIntersect);
+    int distanceToMesh(int i, Vector3f &pos,Vector3f &v){return 0;}
+    vector<int> getConnections(int i){ vector<int> a; return a;}
+    int distanceToEdgeMesh(int i, int b, Vector3f &posa, Vector3f & posb, Vector3f &va, Vector3f &vb){return 0;}
+    string getClass(){return "StaticMeshSystem";}
 private:
-    Mesh m_mesh;
+    Mesh m_clothMesh;
 };
 
 

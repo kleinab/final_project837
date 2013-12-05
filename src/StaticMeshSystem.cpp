@@ -5,11 +5,11 @@ StaticMeshSystem::StaticMeshSystem(Mesh &m):ParticleSystem(1){
 	//
 	minDistance = 0.5;
     impulseDistance = 0.2;
-    m_mesh = m;
+    m_clothMesh = m;
 }
 
-bool StaticMeshSystem::intersect(Vector3f& pos, Vector3f& normal){
-    return m_mesh.intersect(pos, 0.05);
+pair<int, float> StaticMeshSystem::intersect(int index, Vector3f& pos, Vector3f& v,  Vector3f& normal, bool selfIntersect){
+    return m_clothMesh.intersect(index, pos, v, normal, 0.05, selfIntersect);
 }
 
 vector<Vector3f> StaticMeshSystem::evalF(vector<Vector3f> state)
@@ -29,5 +29,5 @@ void StaticMeshSystem::moveOne(Vector3f displacement){
 }
 
 void StaticMeshSystem::draw(){
-    m_mesh.draw();
+    m_clothMesh.draw();
 }

@@ -73,8 +73,8 @@ OBJECTS := \
 	$(OBJDIR)/camera.o \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/particleSystem.o \
-	$(OBJDIR)/SphereSystem.o \
 	$(OBJDIR)/StaticMeshSystem.o \
+	$(OBJDIR)/TimeStepper.o \
 	$(OBJDIR)/Joint.o \
 	$(OBJDIR)/MatrixStack.o \
 	$(OBJDIR)/SkeletalModel.o \
@@ -160,6 +160,7 @@ $(OBJDIR)/SphereSystem.o: src/SphereSystem.cpp
 $(OBJDIR)/StaticMeshSystem.o: src/StaticMeshSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+$(OBJDIR)/TimeStepper.o: src/TimeStepper.cpp
 $(OBJDIR)/Joint.o: src/Joint.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o "$@" -c "$<"
