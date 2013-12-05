@@ -27,4 +27,12 @@ for line2 in f2:
       fa.write(line2)
       fr.write(line2)
       r+=1
+  if line2[0] == 'f':
+    split = line2.split()
+    if int(split[1]) in left and int(split[2]) in left and int(split[3]) in left:
+      fa.write(line2)
+      fl.write(line2)
+    if int(split[1]) in right and int(split[2]) in right and int(split[3]) in right:
+      fa.write(line2)
+      fr.write(line2)
   j+=1
